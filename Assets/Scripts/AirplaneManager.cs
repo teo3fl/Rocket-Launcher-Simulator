@@ -11,7 +11,7 @@ public class AirplaneManager : MonoBehaviour
     [SerializeField]
     private Transform spawnLocation;
 
-    private Airplane airplane;
+    public Airplane airplane { get; private set; }
 
     void Start()
     {

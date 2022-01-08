@@ -7,7 +7,7 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     private float f_movementSpeed = 100f;
 
-    public GameObject target;
+    public Transform target;
 
     bool lostTarget = false;
     private bool LostTarget
@@ -21,9 +21,12 @@ public class Rocket : MonoBehaviour
             // if the angle between dir and the forward of the rocket is greater than a given value
             // then the target was lost
             Vector3 dir = transform.position - target.transform.position;
-            if (Vector3.Angle(dir, transform.forward) > f_viewAngle)
+            var angle = Vector3.Angle(dir, transform.forward) % 91f;
+            Debug.Log(angle);
+            if (angle > f_viewAngle)
             {
                 lostTarget = true;
+                Debug.Log("Target lost");
             }
 
             return lostTarget;
@@ -39,16 +42,15 @@ public class Rocket : MonoBehaviour
 
     void Update()
     {
-        if(LostTarget)
+        if(!LostTarget)
         {
-            // move forward
-            transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
+            Vector3 targetDirection = target.position - transform.position;
+            float singleStep = f_movementSpeed * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            Debug.Log("Target locked");
         }
-        else
-        {
-            // move towards target
-            float step = f_movementSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-        }
+
+        transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
     }
 }

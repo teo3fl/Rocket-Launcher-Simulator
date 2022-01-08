@@ -33,6 +33,7 @@ public class RocketLauncher : MonoBehaviour
         canFire = false;
 
         var rocket = Instantiate(rocketPrefab, spawnPoint.position, transform.rotation).GetComponent<Rocket>();
-        // rocket.target = PlaneManager.Instance.Plane;
+        var airplane = AirplaneManager.Instance.airplane;
+        rocket.target = airplane? airplane.transform : null;
     }
 }

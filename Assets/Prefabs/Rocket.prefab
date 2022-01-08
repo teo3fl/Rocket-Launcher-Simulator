@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded48714c3a8ca940a9a4dee60c0378d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f_viewAngle: 20
-  f_movementSpeed: 1
+  f_viewAngle: 100
+  f_movementSpeed: 60
   target: {fileID: 0}
 --- !u!1 &8303852809072168510
 GameObject:
