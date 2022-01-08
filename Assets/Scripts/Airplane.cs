@@ -39,8 +39,11 @@ public class Airplane : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isHit && other.gameObject.GetComponent<Rocket>() != null)
+        if (other.gameObject.GetComponent<Rocket>() != null)
         {
+            if (isHit)
+                return;
+
             isHit = true;
             Debug.Log("Plane was hit by rocket");
             go_workingTrailRenderers.transform.DetachChildren();
