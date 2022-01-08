@@ -22,7 +22,6 @@ public class Rocket : MonoBehaviour
             // then the target was lost
             Vector3 dir = transform.position - target.transform.position;
             var angle = Vector3.Angle(dir, transform.forward) % 91f;
-            Debug.Log(angle);
             if (angle > f_viewAngle)
             {
                 lostTarget = true;
@@ -42,15 +41,21 @@ public class Rocket : MonoBehaviour
 
     void Update()
     {
-        if(!LostTarget)
+        if (!LostTarget)
         {
             Vector3 targetDirection = target.position - transform.position;
             float singleStep = f_movementSpeed * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
-            Debug.Log("Target locked");
+            //Debug.Log("Target locked");
         }
 
         transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Hit a plane or a bound");
+        Destroy(gameObject);
     }
 }

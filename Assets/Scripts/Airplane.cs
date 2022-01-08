@@ -15,7 +15,8 @@ public class Airplane : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Plane hit");
+        Debug.Log("Plane was hit or reached bounds");
+        Destroy(gameObject);
         // start descending
 
         // generate smoke particles
