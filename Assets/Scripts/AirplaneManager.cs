@@ -13,6 +13,7 @@ public class AirplaneManager : MonoBehaviour
 
     public Airplane airplane { get; private set; }
 
+
     void Start()
     {
         Instance = this;

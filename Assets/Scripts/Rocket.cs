@@ -17,15 +17,22 @@ public class Rocket : MonoBehaviour
             if (lostTarget)
                 return lostTarget;
 
-            // let dir = the straight line from the rocket to the target
-            // if the angle between dir and the forward of the rocket is greater than a given value
-            // then the target was lost
-            Vector3 dir = transform.position - target.transform.position;
-            var angle = Vector3.Angle(dir, transform.forward) % 91f;
-            if (angle > f_viewAngle)
+            if (target == null)
             {
                 lostTarget = true;
-                Debug.Log("Target lost");
+            }
+            else
+            {
+                // let dir = the straight line from the rocket to the target
+                // if the angle between dir and the forward of the rocket is greater than a given value
+                // then the target was lost
+                Vector3 dir = transform.position - target.transform.position;
+                var angle = Vector3.Angle(dir, transform.forward) % 91f;
+                if (angle > f_viewAngle)
+                {
+                    lostTarget = true;
+                    Debug.Log("Target lost");
+                }
             }
 
             return lostTarget;
@@ -47,7 +54,6 @@ public class Rocket : MonoBehaviour
             float singleStep = f_movementSpeed * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
-            //Debug.Log("Target locked");
         }
 
         transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
@@ -55,7 +61,7 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit a plane or a bound");
+        Debug.Log("Rocket hit a plane or a bound");
         Destroy(gameObject);
     }
 }
