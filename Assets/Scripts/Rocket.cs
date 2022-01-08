@@ -6,6 +6,8 @@ public class Rocket : MonoBehaviour
     private float f_viewAngle = 20f;
     [SerializeField]
     private float f_movementSpeed = 100f;
+    [SerializeField]
+    private Transform trail;
 
     public Transform target;
 
@@ -62,6 +64,7 @@ public class Rocket : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Rocket hit a plane or a bound");
+        trail.SetParent(null);
         Destroy(gameObject);
     }
 }
