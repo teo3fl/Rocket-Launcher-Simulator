@@ -122,8 +122,10 @@ public class RocketLauncher : MonoBehaviour
     private void Fire()
     {
         canFire = false;
+        Vector3 forward = t_launcherModel.transform.TransformDirection(Vector3.right) * 1000;
 
-        var rocket = Instantiate(rocketPrefab, spawnPoint.position, transform.rotation).GetComponent<Rocket>();
+        var rocket = Instantiate(rocketPrefab, spawnPoint.position, Quaternion.LookRotation(forward, Vector3.up)).GetComponent<Rocket>();
+        //var rocket = Instantiate(rocketPrefab, spawnPoint.position, transform.rotation).GetComponent<Rocket>();
         var airplane = AirplaneManager.Instance.airplane;
         rocket.target = airplane && CurrentTargetState == TargetState.Locked? airplane.transform : null;
     }

@@ -30,7 +30,8 @@ public class Rocket : MonoBehaviour
                 // let dir = the straight line from the rocket to the target
                 // if the angle between dir and the forward of the rocket is greater than a given value
                 // then the target was lost
-                Vector3 dir = transform.position - target.transform.position;
+                
+                Vector3 dir = target.transform.position - transform.position;
                 var angle = Vector3.Angle(dir, transform.forward) % 91f;
                 if (angle > f_viewAngle)
                 {
