@@ -58,6 +58,8 @@ public class Airplane : MonoBehaviour
         {
             Debug.Log("Plane hit the ground");
             go_workingTrailRenderers.transform.DetachChildren();
+            if (go_damagedTrailRenderers.activeInHierarchy)
+                go_damagedTrailRenderers.transform.DetachChildren();
             go_destroyExplosion.transform.SetParent(null);
             go_destroyExplosion.SetActive(true);
             Destroy(go_destroyExplosion, 5f);
