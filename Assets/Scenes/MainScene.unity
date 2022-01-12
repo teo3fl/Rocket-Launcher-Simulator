@@ -1280,7 +1280,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1300
+  far clip plane: 1390
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1956,6 +1956,10 @@ PrefabInstance:
     - target: {fileID: 7295767827924132669, guid: 2e802fa91982be147ad9deee098e7a5c, type: 3}
       propertyPath: m_Name
       value: Rocket Launcher (no rocket)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295767827924132669, guid: 2e802fa91982be147ad9deee098e7a5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e802fa91982be147ad9deee098e7a5c, type: 3}
