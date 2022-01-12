@@ -107,7 +107,7 @@ public class RocketLauncher : MonoBehaviour
 
     private void UpdateInput()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canFire)
         {
             Fire();
             StartCoroutine(FireCooldown());
