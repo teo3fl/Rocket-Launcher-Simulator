@@ -8,6 +8,8 @@ public class Rocket : MonoBehaviour
     private float f_movementSpeed = 100f;
     [SerializeField]
     private Transform trail;
+    [SerializeField]
+    private GameObject explosion;
 
     public Transform target;
 
@@ -64,7 +66,21 @@ public class Rocket : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Rocket hit a plane or a bound");
+        SelfDestruct();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Rocket hit an object (collider)");
+        SelfDestruct();
+    }
+
+    private void SelfDestruct()
+    {
         trail.SetParent(null);
+        explosion.SetActive(true);
+        explosion.transform.SetParent(null);
+        Destroy(explosion, 4f);
         Destroy(gameObject);
     }
 }

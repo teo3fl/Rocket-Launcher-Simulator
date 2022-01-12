@@ -16,7 +16,9 @@ public class Airplane : MonoBehaviour
     [SerializeField]
     private GameObject go_damagedTrailRenderers;
     [SerializeField]
-    private GameObject go_explosion;
+    private GameObject go_damageExplosions;
+    [SerializeField]
+    private GameObject go_destroyExplosion;
 
     private bool isHit = false;
     Vector3 ground = new Vector3(1, 0, 1);
@@ -50,7 +52,7 @@ public class Airplane : MonoBehaviour
             Debug.Log("Plane was hit by rocket");
             go_workingTrailRenderers.transform.DetachChildren();
             go_damagedTrailRenderers.SetActive(true);
-            go_explosion.SetActive(true);
+            go_damageExplosions.SetActive(true);
         }
         else
         {
@@ -60,5 +62,12 @@ public class Airplane : MonoBehaviour
                 go_damagedTrailRenderers.transform.DetachChildren();
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Plane hit the ground");
+        go_workingTrailRenderers.transform.DetachChildren();
+        go_destroyExplosion.SetActive(true);
     }
 }
