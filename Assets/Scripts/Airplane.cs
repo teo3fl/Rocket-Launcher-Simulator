@@ -54,6 +54,15 @@ public class Airplane : MonoBehaviour
             go_damagedTrailRenderers.SetActive(true);
             go_damageExplosions.SetActive(true);
         }
+        else if (other.gameObject.GetComponent<Terrain>() != null)
+        {
+            Debug.Log("Plane hit the ground");
+            go_workingTrailRenderers.transform.DetachChildren();
+            go_destroyExplosion.transform.SetParent(null);
+            go_destroyExplosion.SetActive(true);
+            Destroy(go_destroyExplosion, 5f);
+            Destroy(gameObject);
+        }
         else
         {
             Debug.Log("Plane hit bounds");
@@ -62,12 +71,5 @@ public class Airplane : MonoBehaviour
                 go_damagedTrailRenderers.transform.DetachChildren();
             Destroy(gameObject);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Plane hit the ground");
-        go_workingTrailRenderers.transform.DetachChildren();
-        go_destroyExplosion.SetActive(true);
     }
 }
