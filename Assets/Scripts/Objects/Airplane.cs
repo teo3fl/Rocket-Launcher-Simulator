@@ -23,6 +23,10 @@ public class Airplane : MonoBehaviour
     private bool isHit = false;
     Vector3 ground = new Vector3(1, 0, 1);
 
+    public delegate void PlaneHit();
+    public static PlaneHit onPlaneHit;
+
+
     void Update()
     {
         if (isHit)
@@ -45,6 +49,8 @@ public class Airplane : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Rocket>() != null)
         {
+            onPlaneHit?.Invoke();
+
             if (isHit)
                 return;
 

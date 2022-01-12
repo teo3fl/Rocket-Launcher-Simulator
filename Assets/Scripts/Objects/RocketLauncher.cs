@@ -67,6 +67,8 @@ public class RocketLauncher : MonoBehaviour
 
     private float f_elapsedAimTime = 0f;
 
+    public delegate void RocketFired();
+    public static RocketFired onRocketFired;
 
     private void Start()
     {
@@ -129,6 +131,8 @@ public class RocketLauncher : MonoBehaviour
         //var rocket = Instantiate(rocketPrefab, spawnPoint.position, transform.rotation).GetComponent<Rocket>();
         var airplane = AirplaneManager.Instance.airplane;
         rocket.target = airplane && CurrentTargetState == TargetState.Locked? airplane.transform : null;
+
+        onRocketFired?.Invoke();
     }
 
     private void RefreshUiTargetColor()
