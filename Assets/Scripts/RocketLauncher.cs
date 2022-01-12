@@ -117,6 +117,7 @@ public class RocketLauncher : MonoBehaviour
     {
         yield return new WaitForSeconds(f_fireCooldown);
         canFire = true;
+        t_launcherModel.GetComponent<AudioSource>().Play(); // reload sound
     }
 
     private void Fire()

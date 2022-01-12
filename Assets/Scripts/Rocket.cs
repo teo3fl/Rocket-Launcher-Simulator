@@ -10,6 +10,8 @@ public class Rocket : MonoBehaviour
     private Transform trail;
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    private GameObject go_impactSoundPlayer;
 
     public Transform target;
 
@@ -78,6 +80,9 @@ public class Rocket : MonoBehaviour
 
     private void SelfDestruct()
     {
+        go_impactSoundPlayer.SetActive(true);
+        go_impactSoundPlayer.transform.SetParent(null);
+        Destroy(go_impactSoundPlayer, 10f);
         trail.SetParent(null);
         explosion.SetActive(true);
         explosion.transform.SetParent(null);
