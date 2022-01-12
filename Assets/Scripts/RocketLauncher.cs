@@ -24,21 +24,22 @@ public class RocketLauncher : MonoBehaviour
     [SerializeField]
     private Color emptyTargetColor;
     [SerializeField]
+    private Color targetAquiredColor;
+    [SerializeField]
     private Color targetLockedColor;
 
     private bool canFire = true;
-    private bool targetLocked = false;
-    private bool TargetLocked
-    {
-        get
-        {
-            return targetLocked;
-        }
 
+    enum TargetState { Lost, Aquired, Locked };
+
+    private TargetState currentTargetState = TargetState.Lost;
+    private TargetState CurrentTargetState
+    {
+        get { return currentTargetState; }
         set
         {
-            targetLocked = value;
-            SetUiTargetColor(targetLocked ? emptyTargetColor : targetLockedColor);
+            currentTargetState = value;
+            RefreshUiTargetColor();
         }
     }
     private bool IsPlaneInSight
@@ -69,34 +70,39 @@ public class RocketLauncher : MonoBehaviour
 
     private void Start()
     {
-        SetUiTargetColor(emptyTargetColor);
+        RefreshUiTargetColor();
     }
 
     void Update()
     {
-        if(IsPlaneInSight)
+        if (IsPlaneInSight)
         {
-            ToggleUiTarget(true);
+            CurrentTargetState = TargetState.Aquired;
             f_elapsedAimTime += Time.deltaTime;
-            if(f_elapsedAimTime >= f_aimTime)
+            if (f_elapsedAimTime >= f_aimTime)
             {
-                TargetLocked = true;
+                CurrentTargetState = TargetState.Locked;
             }
         }
         else
         {
             f_elapsedAimTime = 0;
-            TargetLocked = false;
-            ToggleUiTarget(false);
+            CurrentTargetState = TargetState.Lost;
         }
 
-        UpdateTargetRotation();
-        UpdateInput();        
+        UpdateTargetPosition();
+        UpdateInput();
     }
 
-    private void UpdateTargetRotation()
+    private void UpdateTargetPosition()
     {
-        go_target.transform.Rotate(0, 0 ,f_targetRotationSpeed * Time.deltaTime);
+        var airplane = AirplaneManager.Instance.airplane;
+        if (airplane != null && IsPlaneInSight)
+        {
+            Vector3 wantedPos = Camera.main.WorldToScreenPoint(airplane.transform.position);
+            go_target.transform.position = wantedPos;
+            go_target.transform.Rotate(0, 0, f_targetRotationSpeed * Time.deltaTime);
+        }
     }
 
     private void UpdateInput()
@@ -119,16 +125,22 @@ public class RocketLauncher : MonoBehaviour
 
         var rocket = Instantiate(rocketPrefab, spawnPoint.position, transform.rotation).GetComponent<Rocket>();
         var airplane = AirplaneManager.Instance.airplane;
-        rocket.target = airplane? airplane.transform : null;
+        rocket.target = airplane && CurrentTargetState == TargetState.Locked? airplane.transform : null;
     }
 
-    private void SetUiTargetColor(Color color)
+    private void RefreshUiTargetColor()
     {
-        go_target.GetComponent<Image>().color = color;
-    }
-
-    private void ToggleUiTarget(bool active)
-    {
-        go_target.SetActive(active);
+        switch (CurrentTargetState)
+        {
+            case TargetState.Lost:
+                go_target.GetComponent<Image>().color = emptyTargetColor;
+                break;
+            case TargetState.Aquired:
+                go_target.GetComponent<Image>().color = targetAquiredColor;
+                break;
+            case TargetState.Locked:
+                go_target.GetComponent<Image>().color = targetLockedColor;
+                break;
+        }
     }
 }

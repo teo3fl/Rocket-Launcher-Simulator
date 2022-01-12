@@ -845,10 +845,11 @@ MonoBehaviour:
   go_target: {fileID: 1285047911}
   f_fireCooldown: 1
   f_aimTime: 2
-  f_targetRotationSpeed: 1
+  f_targetRotationSpeed: 40
   f_maxTargetAngleDifference: 3
-  emptyTargetColor: {r: 0.4245283, g: 0.16744313, b: 0, a: 1}
-  targetLockedColor: {r: 0, g: 0.7830189, b: 0.20711738, a: 1}
+  emptyTargetColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+  targetAquiredColor: {r: 0, g: 0.6132076, b: 0.07215837, a: 1}
+  targetLockedColor: {r: 0.764151, g: 0.019628085, b: 0, a: 1}
   modelPossitionOffset: {x: 0, y: 0.35, z: 0}
 --- !u!4 &939148124 stripped
 Transform:
@@ -917,7 +918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1285047912
 RectTransform:
   m_ObjectHideFlags: 0
