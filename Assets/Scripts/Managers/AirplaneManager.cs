@@ -7,9 +7,9 @@ public class AirplaneManager : MonoBehaviour
     public static AirplaneManager Instance { get; private set; }
 
     [SerializeField]
-    private GameObject airplanePrefab;
+    private GameObject[] airplanePrefabs;
     [SerializeField]
-    private Transform spawnLocation;
+    private Transform spawnLocations;
 
     public Airplane airplane { get; private set; }
 
@@ -23,7 +23,20 @@ public class AirplaneManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && airplane == null)
         {
-            airplane = Instantiate(airplanePrefab, spawnLocation.position,spawnLocation.rotation).GetComponent<Airplane>();
+            var spawn = GetRandomSpawn();
+            airplane = Instantiate(GetRandomAirplanePrefab(), spawn.position,spawn.rotation).GetComponent<Airplane>();
         }
+    }
+
+    private Transform GetRandomSpawn()
+    {
+        int index = Random.Range(0, spawnLocations.childCount - 1);
+        return spawnLocations.GetChild(index);
+    }
+
+    private GameObject GetRandomAirplanePrefab()
+    {
+        int index = Random.Range(0, airplanePrefabs.Length - 1);
+        return airplanePrefabs[index];
     }
 }
