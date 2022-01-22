@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_viewAngle: 30
-  f_movementSpeed: 60
+  f_movementSpeed: 2000
   trail: {fileID: 1504273374920307839}
   explosion: {fileID: 4825960951207008425}
   go_impactSoundPlayer: {fileID: 205707562981854085}
