@@ -107,7 +107,7 @@ public class RocketLauncher : MonoBehaviour
         if (airplane != null && IsPlaneInSight)
         {
             Vector3 wantedPos = Camera.main.WorldToScreenPoint(airplane.transform.position);
-            go_target.transform.position = wantedPos;
+            go_target.transform.position = new Vector3(wantedPos.x, wantedPos.y, 0);
             go_target.transform.Rotate(0, 0, f_targetRotationSpeed * Time.deltaTime);
         }
     }
