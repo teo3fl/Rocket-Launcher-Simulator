@@ -47,15 +47,18 @@ public class Airplane : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Rocket>() != null)
+        if (other.gameObject.GetComponent<Rocket>() != null )
         {
+            if (other.gameObject.GetComponent<Rocket>().target == null)
+                return; // the rocket entered the collider (which is big), but it shouldn't be able to hit
+
             onPlaneHit?.Invoke();
+            Debug.Log("Plane was hit by rocket");
 
             if (isHit)
                 return;
 
             isHit = true;
-            Debug.Log("Plane was hit by rocket");
             go_workingTrailRenderers.transform.DetachChildren();
             go_damagedTrailRenderers.SetActive(true);
             go_damageExplosions.SetActive(true);

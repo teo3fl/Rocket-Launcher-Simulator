@@ -68,6 +68,10 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        var plane = other.GetComponent<Airplane>();
+        if (plane != null && target == null) // the rocket hit the jet collider anyway
+            return;
+
         Debug.Log("Rocket hit a plane or a bound");
         SelfDestruct();
     }
