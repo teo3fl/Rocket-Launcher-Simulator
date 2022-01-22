@@ -400,8 +400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded48714c3a8ca940a9a4dee60c0378d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f_viewAngle: 30
-  f_movementSpeed: 2000
+  f_viewAngle: 90
+  f_movementSpeed: 2300
   trail: {fileID: 1504273374920307839}
   explosion: {fileID: 4825960951207008425}
   go_impactSoundPlayer: {fileID: 205707562981854085}
@@ -443,7 +443,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1500
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

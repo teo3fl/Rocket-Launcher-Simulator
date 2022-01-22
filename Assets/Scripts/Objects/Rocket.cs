@@ -96,7 +96,7 @@ public class Rocket : MonoBehaviour
 
     private IEnumerator FollowTarget()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         while (!LostTarget)
         {
             Vector3 targetDirection = target.position - transform.position;
