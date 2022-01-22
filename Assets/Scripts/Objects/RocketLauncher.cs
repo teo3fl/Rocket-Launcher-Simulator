@@ -29,6 +29,7 @@ public class RocketLauncher : MonoBehaviour
     private Color targetLockedColor;
 
     private bool canFire = true;
+    private bool inEnabled = true;
 
     enum TargetState { Lost, Aquired, Locked };
 
@@ -113,12 +114,16 @@ public class RocketLauncher : MonoBehaviour
 
     private void UpdateInput()
     {
+        if (!enabled)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && canFire)
         {
             Fire();
             StartCoroutine(FireCooldown());
         }
     }
+
     private IEnumerator FireCooldown()
     {
         yield return new WaitForSeconds(f_fireCooldown);
@@ -153,5 +158,10 @@ public class RocketLauncher : MonoBehaviour
                 go_target.GetComponent<Image>().color = targetLockedColor;
                 break;
         }
+    }
+
+    public void Enable(bool isEnabled)
+    {
+        enabled = isEnabled;
     }
 }

@@ -13,11 +13,15 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        MouseSensitivitySliderManager.onSensitivityChanged = OnSensitivityChanged;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Cursor.lockState == CursorLockMode.None)
+            return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -26,5 +30,10 @@ public class MouseLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    void OnSensitivityChanged(float value)
+    {
+        mouseSensitivity = value;
     }
 }
