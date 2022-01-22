@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Rocket : MonoBehaviour
@@ -46,23 +47,22 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    public delegate void FollowingTarget();
+    public static FollowingTarget onFollowingTarget;
+
 
     void Start()
     {
         if (target == null)
             lostTarget = true;
+        else
+            onFollowingTarget?.Invoke();
+
+        StartCoroutine(FollowTarget());
     }
 
     void Update()
     {
-        if (!LostTarget)
-        {
-            Vector3 targetDirection = target.position - transform.position;
-            float singleStep = f_movementSpeed * Time.deltaTime;
-            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
-            transform.rotation = Quaternion.LookRotation(newDirection);
-        }
-
         transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
     }
 
@@ -88,5 +88,19 @@ public class Rocket : MonoBehaviour
         explosion.transform.SetParent(null);
         Destroy(explosion, 4f);
         Destroy(gameObject);
+    }
+
+    private IEnumerator FollowTarget()
+    {
+        yield return new WaitForSeconds(1f);
+        while (!LostTarget)
+        {
+            Vector3 targetDirection = target.position - transform.position;
+            float singleStep = f_movementSpeed * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+
+            yield return 0;
+        }
     }
 }
