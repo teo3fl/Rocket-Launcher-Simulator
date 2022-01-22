@@ -20,6 +20,9 @@ public class EnvironmentManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Escape))
+            Application.Quit();
+
         if(Input.GetKeyDown(KeyCode.E))
         {
             isDay = !isDay;
