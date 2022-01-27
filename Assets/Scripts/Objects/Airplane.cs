@@ -20,6 +20,10 @@ public class Airplane : MonoBehaviour
     [SerializeField]
     private GameObject go_destroyExplosion;
 
+    [SerializeField]
+    private Renderer renderer;
+    public Renderer Renderer { get { return renderer; } }
+
     private bool isHit = false;
     Vector3 ground = new Vector3(1, 0, 1);
 

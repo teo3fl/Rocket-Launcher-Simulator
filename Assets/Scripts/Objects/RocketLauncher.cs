@@ -146,6 +146,13 @@ public class RocketLauncher : MonoBehaviour
 
     private void RefreshUiTargetColor()
     {
+        var airplane = AirplaneManager.Instance.airplane;
+        if (airplane == null || !airplane.Renderer.isVisible)
+        {
+            go_target.GetComponent<Image>().color = emptyTargetColor;
+            return;
+        }
+
         switch (CurrentTargetState)
         {
             case TargetState.Lost:

@@ -5090,6 +5090,7 @@ MonoBehaviour:
   go_damagedTrailRenderers: {fileID: 2463599588920772467}
   go_damageExplosions: {fileID: 2459816800640679971}
   go_destroyExplosion: {fileID: 1863799065700114069}
+  renderer: {fileID: 3766458332345491313}
 --- !u!65 &245268706239169715
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10780,6 +10781,11 @@ PrefabInstance:
 --- !u!4 &2077151001203848766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4155046195482119553, guid: 05868fab2d415b84abdc41e4d376b804, type: 3}
+  m_PrefabInstance: {fileID: 2700529563747154879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3766458332345491313 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1242730376054809806, guid: 05868fab2d415b84abdc41e4d376b804, type: 3}
   m_PrefabInstance: {fileID: 2700529563747154879}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8739626948581524193
