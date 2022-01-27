@@ -6,7 +6,12 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     private float f_viewAngle = 20f;
     [SerializeField]
-    private float f_movementSpeed = 100f;
+    private float f_topSpeed = 2300f;
+    [SerializeField]
+    private float f_acceleration = 300f;
+    [SerializeField]
+    private float f_startingSpeed = 50f;
+    private float f_movementSpeed = 0f;
     [SerializeField]
     private Transform trail;
     [SerializeField]
@@ -58,11 +63,18 @@ public class Rocket : MonoBehaviour
         else
             onFollowingTarget?.Invoke();
 
+        f_movementSpeed = f_startingSpeed;
+
         StartCoroutine(FollowTarget());
     }
 
     void Update()
     {
+        if(f_movementSpeed < f_topSpeed)
+        {
+            f_movementSpeed += f_acceleration * Time.deltaTime;
+            f_movementSpeed %= f_topSpeed;
+        }
         transform.Translate(Vector3.forward * f_movementSpeed * Time.deltaTime);
     }
 
