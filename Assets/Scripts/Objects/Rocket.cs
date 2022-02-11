@@ -103,7 +103,7 @@ public class Rocket : MonoBehaviour
         SelfDestruct();
     }
 
-    private void SelfDestruct()
+    public void SelfDestruct()
     {
         go_impactSoundPlayer.SetActive(true);
         go_impactSoundPlayer.transform.SetParent(null);
